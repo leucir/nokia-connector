@@ -1,0 +1,41 @@
+<server description="new server">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>webProfile-7.0</feature>
+        <feature>localConnector-1.0</feature>
+       	<feature>rtcomm-1.0</feature>
+     	<feature>ssl-1.0</feature>
+     	<feature>jaxrs-2.0</feature>
+     	<feature>appSecurity-2.0</feature>
+    </featureManager>
+
+
+  	<ssl id="myDefaultSSLConfig"
+       keyStoreRef="defaultKeyStore"
+       trustStoreRef="defaultTrustStore" />
+
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="9080" httpsPort="9443" />
+                  
+    <!-- Automatically expand WAR files and EAR files -->
+    <applicationManager autoExpand="true"/>
+
+    <!-- <applicationMonitor updateTrigger="mbean"/> -->
+
+	<logging traceSpecification="*=audit:com.ibm.iot.*=finest" consoleLogLevel="INFO"/>
+
+    <webApplication id="LWM2M" location="LWM2M.war" name="LWM2M">
+	    <application-bnd>
+   	       <security-role name="restricted">
+	           <user name="Impact" />
+	       </security-role>
+	    </application-bnd>
+    </webApplication>
+    
+    
+    <basicRegistry id="basic" realm="BasicRealm">
+        <user name="Impact" password="watsonIoT" />
+    </basicRegistry>
+    
+</server>
